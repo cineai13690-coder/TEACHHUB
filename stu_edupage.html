@@ -1,28 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeachHub - Welcome</title>
-    <link rel="icon" type="image/png" href="logo1.png">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="stuhome">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeachHub - Student Portal</title>
+    <link rel="icon" type="image/png" href="logo1.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ==============================================
+         1. Global Styles - Matching TeachHub Theme
+         ============================================== */
+      :root {
+        --color-deep-purple: #0f0028;
+        --color-dark-accent: #2d0063;
+        --color-primary-glow: #8b5cf6;
+        --color-secondary-glow: #a78bfa;
+        --color-text-light: #e0e7ff;
+        --color-text-muted: #b4bfd9;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--color-deep-purple);
+        background-image: radial-gradient(
+          at top left,
+          rgba(45, 0, 99, 0.4) 0%,
+          rgba(15, 0, 40, 0.8) 70%,
+          var(--color-deep-purple) 100%
+        );
+        background-attachment: fixed;
+        color: var(--color-text-light);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ==============================================
+         2. Header (Optional for Consistency)
+         ============================================== */
+      header {
+        background-color: rgba(45, 0, 99, 0.85);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(8px);
+      }
+
+      .main-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .logo {
+        font-size: 36px;
+        font-weight: 900;
+        color: white;
+        text-decoration: none;
+        text-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+        letter-spacing: -0.5px;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s, border-bottom 0.3s;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--color-secondary-glow);
+        border-bottom: 2px solid var(--color-primary-glow);
+      }
+
+      /* ==============================================
+         3. Main Content
+         ============================================== */
+      main {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 20px;
+      }
+
+      .sub-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 40px;
+        width: 100%;
+        max-width: 900px;
+        text-align: center;
+      }
+
+      .sub-options div {
+        background-color: var(--color-dark-accent);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 16px;
+        padding: 40px 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+          0 0 20px rgba(139, 92, 246, 0.1);
+        transition: transform 0.4s, box-shadow 0.4s;
+      }
+
+      .sub-options div:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6),
+          0 0 30px var(--color-primary-glow);
+      }
+
+      button {
+        background-color: var(--color-primary-glow);
+        color: var(--color-deep-purple);
+        border: none;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-size: 1.1em;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        text-transform: uppercase;
+        transition: background-color 0.3s ease, transform 0.2s ease,
+          box-shadow 0.3s ease;
+      }
+
+      button:hover {
+        background-color: var(--color-secondary-glow);
+        box-shadow: 0 6px 20px rgba(167, 139, 250, 0.6);
+        transform: translateY(-3px);
+      }
+
+      /* ==============================================
+         4. Footer
+         ============================================== */
+      footer {
+        text-align: center;
+        padding: 25px;
+        background-color: rgba(15, 0, 40, 0.85);
+        color: rgba(224, 231, 255, 0.6);
+        font-size: 0.9em;
+        border-top: 1px solid rgba(139, 92, 246, 0.1);
+      }
+
+      /* ==============================================
+         5. Responsive Design
+         ============================================== */
+      @media (max-width: 600px) {
+        .logo {
+          font-size: 28px;
+        }
+
+        button {
+          font-size: 1em;
+          padding: 12px 30px;
+        }
+
+        .sub-options {
+          gap: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body class="stuhome">
+    <header>
+      <nav class="main-nav">
+        <a href="index.html" class="logo">TeachHub</a>
+        <ul class="nav-links">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="jaboutus.html">ABOUT US</a></li>
+        </ul>
+      </nav>
+    </header>
+
     <main>
-        <div class="sub-options">
-            <div id="math">
-                <a href="stu_edupage1.html" title="math"><button>MATH</button></a>
-            </div>
-            <div id="che">
-                <a href="stu_edupage2.html" title="chemistry"><button>CHEMISTRY</button></a>
-            </div>
-            <div id="phy">
-                <a href="stu_edupage3.html" title="physics"><button>PHYSICS</button></a>
-            </div>
-            <div id="bio">
-                <a href="stu_edupage4.html" title="biology"><button>BIOLOGY</button></a>
-            </div>
+      <div class="sub-options">
+        <div id="math">
+          <a href="stu_edupage1.html" title="math"
+            ><button>MATH</button></a
+          >
         </div>
+        <div id="che">
+          <a href="stu_edupage2.html" title="chemistry"
+            ><button>CHEMISTRY</button></a
+          >
+        </div>
+        <div id="phy">
+          <a href="stu_edupage3.html" title="physics"
+            ><button>PHYSICS</button></a
+          >
+        </div>
+        <div id="bio">
+          <a href="stu_edupage4.html" title="biology"
+            ><button>BIOLOGY</button></a
+          >
+        </div>
+      </div>
     </main>
-</body>
+
+    <footer>
+      <p>&copy; 2025 TeachHub | Empowering Students and Teachers</p>
+    </footer>
+  </body>
 </html>
