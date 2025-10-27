@@ -3,63 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TeachHub - Math AI</title>
+  <title>TeachHub - Physics AI Solver</title>
   <link rel="icon" type="image/png" href="logo1.png" />
 
   <style>
-    /* ===== Dark Purple Math AI Page Styles ===== */
+    /* ===== Physics AI Solver Styles (TeachHub Consistent Theme) ===== */
     body {
       font-family: 'Poppins', Arial, sans-serif;
-      background: rgba(36, 0, 70, 0.9); /* Dark purple */
+      background: radial-gradient(circle at top left, rgba(45, 0, 99, 0.7), rgba(15, 0, 40, 0.95));
+      background-attachment: fixed;
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
-      color: #fff;
+      text-align: center;
     }
 
     h1 {
+      font-size: 2.8em;
+      color: #a8c6ff; /* Soft blue glow for Physics */
+      text-shadow: 0 0 20px rgba(100, 149, 237, 0.5);
       margin-bottom: 25px;
-      color: #e0e0ff;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
-    .math-box {
-      background: #fff;
-      padding: 30px;
+    .physics-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 35px;
       border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 25px rgba(100, 149, 237, 0.15);
       text-align: center;
-      width: 360px;
+      width: 380px;
+      max-width: 90%;
       color: #000;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .physics-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(100, 149, 237, 0.3);
     }
 
     textarea {
       width: 100%;
-      height: 80px;
-      padding: 10px;
+      height: 100px;
+      padding: 12px;
       border: 1px solid #ccc;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      resize: none;
+      border-radius: 10px;
+      margin-bottom: 15px;
       font-size: 15px;
+      resize: none;
+      transition: border 0.2s, box-shadow 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    textarea:focus {
+      border-color: #6495ed;
+      box-shadow: 0 0 10px rgba(100, 149, 237, 0.4);
+      outline: none;
     }
 
     button {
-      background-color: #5c33ff;
+      background-color: #6495ed; /* Cornflower blue button */
       color: white;
       border: none;
-      border-radius: 6px;
-      padding: 10px 22px;
+      border-radius: 8px;
+      padding: 12px 28px;
       cursor: pointer;
-      font-size: 15px;
-      transition: background 0.25s, transform 0.2s;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(100, 149, 237, 0.4);
+      transition: background 0.25s, transform 0.2s, box-shadow 0.3s;
     }
 
     button:hover {
-      background-color: #3d1dba;
+      background-color: #3d68d9;
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(100, 149, 237, 0.6);
     }
 
     .output {
@@ -68,11 +93,29 @@
       background: #f0f8ff;
       border-radius: 10px;
       border: 1px solid #ddd;
-      font-size: 16px;
+      font-size: 15px;
       min-height: 40px;
       text-align: left;
       word-wrap: break-word;
-      color: #0052cc;
+      color: #003399;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      background: #e6f0ff;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+      .physics-box {
+        padding: 25px;
+      }
     }
   </style>
 </head>
@@ -80,14 +123,14 @@
 <body>
   <h1>Physics Solver</h1>
 
-  <div class="math-box">
+  <div class="physics-box">
     <textarea id="question" placeholder="Type your physics question here..."></textarea>
-    <button onclick="solveMath()">Solve</button>
+    <button onclick="solvePhysics()">Solve</button>
     <div class="output" id="result">Answer will appear here...</div>
   </div>
 
   <script>
-    async function solveMath() {
+    async function solvePhysics() {
       const input = document.getElementById("question").value.trim();
       const output = document.getElementById("result");
 
@@ -96,10 +139,10 @@
         return;
       }
 
-      output.innerText = "Thinking...";
+      output.innerText = "⚙️ Thinking...";
 
       try {
-        // Replace this with your AI backend endpoint
+        // Replace with your AI backend endpoint
         const res = await fetch('/api/solve', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
