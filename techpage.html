@@ -1,172 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Teacher Upload Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    /* ===== Reset & Fonts ===== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: rgba(36, 0, 70, 0.9); /* Darker semi-transparent purple */
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    /* ===== Container ===== */
-    .container {
-      background: #fff;
-      padding: 40px 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 500px;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #e0e0ff; /* lighter purple text for contrast */
-    }
-
-    /* ===== Form Elements ===== */
-    form label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 5px;
-      margin-top: 15px;
-      color: #333;
-    }
-
-    form input[type="text"],
-    form select,
-    form textarea,
-    form input[type="file"] {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-bottom: 5px;
-      font-size: 14px;
-      transition: border 0.2s, box-shadow 0.2s;
-    }
-
-    form input:focus,
-    form select:focus,
-    form textarea:focus {
-      outline: none;
-      border-color: #5c33ff;
-      box-shadow: 0 0 5px rgba(92,51,255,0.3);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    button {
-      width: 100%;
-      background: #5c33ff; /* vibrant purple button */
-      color: #fff;
-      padding: 15px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    button:hover {
-      background: #3d1dba;
-      transform: translateY(-2px);
-    }
-
-    /* ===== Result Box ===== */
-    #result {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 10px;
-      background: #f0f8ff;
-      font-size: 14px;
-      color: #0052cc;
-      word-wrap: break-word;
-    }
-
-    pre {
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      background: #e0f0ff;
-      padding: 10px;
-      border-radius: 8px;
-      overflow-x: auto;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <h1>Teacher Upload Portal</h1>
-
-    <form id="teacher-upload-form">
-      <label>Teacher Name:</label>
-      <input type="text" name="teacher_name" required>
-
-      <label>Subject:</label>
-      <select name="subject" required>
-        <option>Math</option>
-        <option>Physics</option>
-        <option>Chemistry</option>
-        <option>Biology</option>
-      </select>
-
-      <label>Chapter / Topic:</label>
-      <input type="text" name="chapter" required>
-
-      <label>Description:</label>
-      <textarea name="description" required></textarea>
-
-      <label>Type:</label>
-      <select name="type" required>
-        <option value="video">Video</option>
-        <option value="image">Image</option>
-        <option value="document">Document</option>
-      </select>
-
-      <label>File:</label>
-      <input type="file" name="file_upload" required>
-
-      <button type="submit">Upload</button>
-    </form>
-
-    <div id="result"></div>
-  </div>
-
-  <script>
-    const form = document.getElementById('teacher-upload-form');
-    const result = document.getElementById('result');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      result.textContent = 'Uploading...';
-
-      const fd = new FormData(form);
-      try {
-        const res = await fetch('/api/upload', { method: 'POST', body: fd });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Upload failed');
-        result.innerHTML = 'Upload successful! <pre>' + JSON.stringify(data.resource, null, 2) + '</pre>';
-        form.reset();
-      } catch (err) {
-        result.textContent = 'Error: ' + err.message;
+  <head>
+    <meta charset="utf-8" />
+    <title>TeachHub | Teacher Upload Portal</title>
+    <link rel="icon" type="image/png" href="logo1.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================
+         1. Global Styles - Match TeachHub Dark Theme
+         ============================================ */
+      :root {
+        --color-deep-purple: #0f0028;
+        --color-dark-accent: #2d0063;
+        --color-primary-glow: #8b5cf6;
+        --color-secondary-glow: #a78bfa;
+        --color-text-light: #e0e7ff;
+        --color-text-muted: #b4bfd9;
       }
-    });
-  </script>
 
-</body>
+      body {
+        font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--color-deep-purple);
+        background-image: radial-gradient(
+          at top left,
+          rgba(45, 0, 99, 0.4) 0%,
+          rgba(15, 0, 40, 0.8) 70%,
+          var(--color-deep-purple) 100%
+        );
+        background-attachment: fixed;
+        color: var(--color-text-light);
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+      }
+
+      /* ============================================
+         2. Upload Form Container
+         ============================================ */
+      .upload-container {
+        background-color: rgba(45, 0, 99, 0.85);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6),
+          0 0 25px rgba(139, 92, 246, 0.2);
+        padding: 40px;
+        width: 100%;
+        max-width: 550px;
+        backdrop-filter: blur(6px);
+      }
+
+      h1 {
+        text-align: center;
+        color: var(--color-text-light);
+        margin-bottom: 25px;
+        font-size: 2em;
+        font-weight: 800;
+        text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        letter-spacing: 1px;
+      }
+
+      /* ============================================
+         3. Form Styling
+         ============================================ */
+      form label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--color-secondary-glow);
+      }
+
+      form input[type="text"],
+      form select,
+      form textarea,
+      form input[type="file"] {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        background-color: rgba(255, 255, 255, 0.05);
+        color: var(--color-text-light);
+        font-size: 14px;
+        margin-bottom: 20px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      form input:focus,
+      form select:focus,
+      form textarea:focus {
+        outline: none;
+        border-color: var(--color-primary-glow);
+        box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      /* ============================================
+         4. Button Styling (Matches TeachHub Buttons)
+         ============================================ */
+      button {
+        width: 100%;
+        background-color: var(--color-primary-glow);
+        color: var(--color-deep-purple);
+        padding: 15px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1em;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background-color: var(--color-secondary-glow);
+        box-shadow: 0 6px 20px rgba(167, 139, 250, 0.6);
+        transform: translateY(-3px);
+      }
+
+      /* ============================================
+         5. Result Box
+         ============================================ */
+      #result {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 12px;
+        background-color: rgba(15, 0, 40, 0.6);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        font-size: 0.95em;
+        color: var(--color-secondary-glow);
+        word-wrap: break-word;
+      }
+
+      pre {
+        background: rgba(45, 0, 99, 0.6);
+        padding: 10px;
+        border-radius: 8px;
+        color: var(--color-text-light);
+        overflow-x: auto;
+      }
+
+      /* ============================================
+         6. Back to Home Link
+         ============================================ */
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        color: var(--color-text-muted);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .back-link:hover {
+        color: var(--color-secondary-glow);
+      }
+
+      /* ============================================
+         7. Responsive
+         ============================================ */
+      @media (max-width: 600px) {
+        .upload-container {
+          padding: 30px 20px;
+        }
+
+        h1 {
+          font-size: 1.6em;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="upload-container">
+      <h1>Teacher Upload Portal</h1>
+
+      <form id="teacher-upload-form">
+        <label>Teacher Name:</label>
+        <input type="text" name="teacher_name" required />
+
+        <label>Subject:</label>
+        <select name="subject" required>
+          <option>Math</option>
+          <option>Physics</option>
+          <option>Chemistry</option>
+          <option>Biology</option>
+        </select>
+
+        <label>Chapter / Topic:</label>
+        <input type="text" name="chapter" required />
+
+        <label>Description:</label>
+        <textarea name="description" required></textarea>
+
+        <label>Type:</label>
+        <select name="type" required>
+          <option value="video">Video</option>
+          <option value="image">Image</option>
+          <option value="document">Document</option>
+        </select>
+
+        <label>File:</label>
+        <input type="file" name="file_upload" required />
+
+        <button type="submit">Upload</button>
+      </form>
+
+      <div id="result"></div>
+
+      <a href="index.html" class="back-link">← Back to TeachHub Home</a>
+    </div>
+
+    <script>
+      const form = document.getElementById("teacher-upload-form");
+      const result = document.getElementById("result");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        result.textContent = "Uploading...";
+
+        const fd = new FormData(form);
+        try {
+          const res = await fetch("/api/upload", { method: "POST", body: fd });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Upload failed");
+          result.innerHTML =
+            '✅ Upload successful!<pre>' +
+            JSON.stringify(data.resource, null, 2) +
+            "</pre>";
+          form.reset();
+        } catch (err) {
+          result.textContent = "❌ Error: " + err.message;
+        }
+      });
+    </script>
+  </body>
 </html>
