@@ -9,6 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
+
     <style>
       /* ==============================================
          1. Global Styles - Matching TeachHub Theme
@@ -41,7 +42,7 @@
       }
 
       /* ==============================================
-         2. Header (Optional for Consistency)
+         2. Header
          ============================================== */
       header {
         background-color: rgba(45, 0, 99, 0.85);
@@ -91,7 +92,7 @@
       }
 
       /* ==============================================
-         3. Main Content
+         3. Main Section - Centered Subject Buttons
          ============================================== */
       main {
         flex: 1;
@@ -102,37 +103,25 @@
       }
 
       .sub-options {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        display: flex;
+        justify-content: center;
+        align-items: center;
         gap: 40px;
-        width: 100%;
+        flex-wrap: wrap;
         max-width: 900px;
-        text-align: center;
       }
 
-      .sub-options div {
-        background-color: var(--color-dark-accent);
-        border: 1px solid rgba(139, 92, 246, 0.2);
-        border-radius: 16px;
-        padding: 40px 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
-          0 0 20px rgba(139, 92, 246, 0.1);
-        transition: transform 0.4s, box-shadow 0.4s;
+      .sub-options a {
+        text-decoration: none;
       }
 
-      .sub-options div:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6),
-          0 0 30px var(--color-primary-glow);
-      }
-
-      button {
+      .sub-options button {
         background-color: var(--color-primary-glow);
         color: var(--color-deep-purple);
         border: none;
-        padding: 15px 40px;
+        padding: 20px 50px;
         border-radius: 50px;
-        font-size: 1.1em;
+        font-size: 1.2em;
         font-weight: 700;
         cursor: pointer;
         box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
@@ -141,10 +130,10 @@
           box-shadow 0.3s ease;
       }
 
-      button:hover {
+      .sub-options button:hover {
         background-color: var(--color-secondary-glow);
-        box-shadow: 0 6px 20px rgba(167, 139, 250, 0.6);
-        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(167, 139, 250, 0.6);
+        transform: translateY(-4px);
       }
 
       /* ==============================================
@@ -162,22 +151,24 @@
       /* ==============================================
          5. Responsive Design
          ============================================== */
-      @media (max-width: 600px) {
+      @media (max-width: 768px) {
         .logo {
-          font-size: 28px;
-        }
-
-        button {
-          font-size: 1em;
-          padding: 12px 30px;
+          font-size: 30px;
         }
 
         .sub-options {
+          flex-direction: column;
           gap: 25px;
+        }
+
+        .sub-options button {
+          width: 100%;
+          max-width: 300px;
         }
       }
     </style>
   </head>
+
   <body class="stuhome">
     <header>
       <nav class="main-nav">
@@ -191,26 +182,12 @@
 
     <main>
       <div class="sub-options">
-        <div id="math">
-          <a href="stu_edupage1.html" title="math"
-            ><button>MATH</button></a
-          >
-        </div>
-        <div id="che">
-          <a href="stu_edupage2.html" title="chemistry"
-            ><button>CHEMISTRY</button></a
-          >
-        </div>
-        <div id="phy">
-          <a href="stu_edupage3.html" title="physics"
-            ><button>PHYSICS</button></a
-          >
-        </div>
-        <div id="bio">
-          <a href="stu_edupage4.html" title="biology"
-            ><button>BIOLOGY</button></a
-          >
-        </div>
+        <a href="stu_edupage1.html" title="math"><button>Math</button></a>
+        <a href="stu_edupage2.html" title="chemistry"
+          ><button>Chemistry</button></a
+        >
+        <a href="stu_edupage3.html" title="physics"><button>Physics</button></a>
+        <a href="stu_edupage4.html" title="biology"><button>Biology</button></a>
       </div>
     </main>
 
