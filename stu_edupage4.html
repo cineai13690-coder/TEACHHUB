@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TeachHub - Math AI</title>
+  <title>TeachHub - Biology AI Solver</title>
   <link rel="icon" type="image/png" href="logo1.png" />
 
   <style>
-    /* ===== Dark Purple Math AI Page Styles ===== */
+    /* ===== Biology AI Solver Styles ===== */
     body {
       font-family: 'Poppins', Arial, sans-serif;
-      background: rgba(36, 0, 70, 0.9); /* Dark purple */
+      background: radial-gradient(circle at top left, rgba(0, 80, 36, 0.8), rgba(10, 0, 20, 0.95));
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -18,76 +18,118 @@
       height: 100vh;
       margin: 0;
       color: #fff;
+      text-align: center;
     }
 
     h1 {
+      font-size: 2.8em;
+      color: #7fffd4; /* Aquamarine glow for Biology */
+      text-shadow: 0 0 20px rgba(127, 255, 212, 0.5);
       margin-bottom: 25px;
-      color: #e0e0ff;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
-    .math-box {
-      background: #fff;
-      padding: 30px;
+    .bio-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 35px;
       border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 25px rgba(127, 255, 212, 0.15);
       text-align: center;
-      width: 360px;
+      width: 380px;
+      max-width: 90%;
       color: #000;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .bio-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(127, 255, 212, 0.3);
     }
 
     textarea {
       width: 100%;
-      height: 80px;
-      padding: 10px;
+      height: 100px;
+      padding: 12px;
       border: 1px solid #ccc;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      resize: none;
+      border-radius: 10px;
+      margin-bottom: 15px;
       font-size: 15px;
+      resize: none;
+      transition: border 0.2s, box-shadow 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    textarea:focus {
+      border-color: #7fffd4;
+      box-shadow: 0 0 10px rgba(127, 255, 212, 0.4);
+      outline: none;
     }
 
     button {
-      background-color: #5c33ff;
-      color: white;
+      background-color: #7fffd4;
+      color: #000;
       border: none;
-      border-radius: 6px;
-      padding: 10px 22px;
+      border-radius: 8px;
+      padding: 12px 28px;
       cursor: pointer;
-      font-size: 15px;
-      transition: background 0.25s, transform 0.2s;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(127, 255, 212, 0.4);
+      transition: background 0.25s, transform 0.2s, box-shadow 0.3s;
     }
 
     button:hover {
-      background-color: #3d1dba;
+      background-color: #3da68a;
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(127, 255, 212, 0.6);
     }
 
     .output {
       margin-top: 20px;
       padding: 15px;
-      background: #f0f8ff;
+      background: #f0fff5;
       border-radius: 10px;
       border: 1px solid #ddd;
-      font-size: 16px;
+      font-size: 15px;
       min-height: 40px;
       text-align: left;
       word-wrap: break-word;
-      color: #0052cc;
+      color: #006644;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      background: #d0fff0;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+      .bio-box {
+        padding: 25px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <h1>Physics Solver</h1>
+  <h1>Biology Solver</h1>
 
-  <div class="math-box">
+  <div class="bio-box">
     <textarea id="question" placeholder="Type your biology question here..."></textarea>
-    <button onclick="solveMath()">Solve</button>
+    <button onclick="solveBiology()">Solve</button>
     <div class="output" id="result">Answer will appear here...</div>
   </div>
 
   <script>
-    async function solveMath() {
+    async function solveBiology() {
       const input = document.getElementById("question").value.trim();
       const output = document.getElementById("result");
 
@@ -96,10 +138,10 @@
         return;
       }
 
-      output.innerText = "Thinking...";
+      output.innerText = "⚙️ Thinking...";
 
       try {
-        // Replace this with your AI backend endpoint
+        // Replace with your AI backend endpoint
         const res = await fetch('/api/solve', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -112,7 +154,7 @@
         output.innerHTML = "<pre>" + data.answer + "</pre>";
 
       } catch (error) {
-        output.innerText = "⚠️ Error.";
+        output.innerText = "⚠️ Error connecting to AI.";
       }
     }
   </script>
