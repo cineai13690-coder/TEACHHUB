@@ -1,152 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math AI Portal</title>
-    <link rel="icon" type="image/png" href="logo1.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeachHub - Chemistry AI Solver</title>
+    <link rel="icon" type="image/png" href="logo1.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        /* ===== Reset & Fonts ===== */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: rgba(36,0,70,0.9); /* Dark purple background */
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            color: #fff;
-        }
+      /* ==========================================
+         GLOBAL THEME (Consistent with TeachHub)
+         ========================================== */
+      :root {
+        --color-deep-purple: #0f0028;
+        --color-dark-accent: #2d0063;
+        --color-primary-glow: #8b5cf6;
+        --color-secondary-glow: #a78bfa;
+        --color-text-light: #e0e7ff;
+        --color-text-muted: #b4bfd9;
+        --color-chem-accent: #00e1ff; /* Cyan for Chemistry */
+      }
 
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--color-deep-purple);
+        background-image: radial-gradient(
+          at top left,
+          rgba(0, 225, 255, 0.2),
+          rgba(15, 0, 40, 0.9)
+        );
+        color: var(--color-text-light);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* ==========================================
+         HEADER (Shared across TeachHub)
+         ========================================== */
+      header {
+        background-color: rgba(45, 0, 99, 0.85);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        backdrop-filter: blur(8px);
+      }
+
+      .main-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .logo {
+        font-size: 36px;
+        font-weight: 900;
+        color: white;
+        text-decoration: none;
+        text-shadow: 0 0 10px rgba(0, 225, 255, 0.7);
+        letter-spacing: -0.5px;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s, border-bottom 0.3s;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--color-chem-accent);
+        border-bottom: 2px solid var(--color-chem-accent);
+      }
+
+      /* ==========================================
+         MAIN SECTION (Chemistry Solver Box)
+         ========================================== */
+      main {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 20px;
+      }
+
+      .chem-box {
+        background-color: var(--color-dark-accent);
+        border: 1px solid rgba(0, 225, 255, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+          0 0 25px rgba(0, 225, 255, 0.2);
+        text-align: center;
+        padding: 40px 30px;
+        width: 420px;
+        max-width: 90%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .chem-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
+          0 0 30px rgba(0, 225, 255, 0.4);
+      }
+
+      h1 {
+        font-size: 2.5em;
+        color: var(--color-chem-accent);
+        text-shadow: 0 0 25px rgba(0, 225, 255, 0.4);
+        margin-bottom: 25px;
+      }
+
+      label {
+        font-weight: 600;
+        color: var(--color-text-light);
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      textarea {
+        width: 100%;
+        height: 100px;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 225, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.05);
+        color: var(--color-text-light);
+        font-size: 1em;
+        resize: none;
+        outline: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      textarea:focus {
+        border-color: var(--color-chem-accent);
+        box-shadow: 0 0 10px rgba(0, 225, 255, 0.4);
+      }
+
+      button {
+        margin-top: 20px;
+        background-color: var(--color-chem-accent);
+        color: var(--color-deep-purple);
+        border: none;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-size: 1.1em;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        box-shadow: 0 4px 15px rgba(0, 225, 255, 0.4);
+        transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+      }
+
+      button:hover {
+        background-color: #57f1ff;
+        box-shadow: 0 6px 25px rgba(0, 225, 255, 0.6);
+        transform: translateY(-3px);
+      }
+
+      .output {
+        margin-top: 25px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        border: 1px solid rgba(0, 225, 255, 0.2);
+        color: var(--color-chem-accent);
+        font-size: 1em;
+        min-height: 50px;
+        text-align: left;
+        white-space: pre-wrap;
+        line-height: 1.6;
+      }
+
+      pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        background: rgba(0, 225, 255, 0.1);
+        padding: 10px;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+
+      /* ==========================================
+         FOOTER
+         ========================================== */
+      footer {
+        text-align: center;
+        padding: 25px;
+        background-color: rgba(15, 0, 40, 0.85);
+        color: rgba(224, 231, 255, 0.6);
+        font-size: 0.9em;
+        border-top: 1px solid rgba(0, 225, 255, 0.1);
+        width: 100%;
+      }
+
+      /* ==========================================
+         RESPONSIVE DESIGN
+         ========================================== */
+      @media (max-width: 600px) {
         h1 {
-            text-align: center;
-            font-size: 3em;
-            margin-bottom: 30px;
-            color: #e0e0ff;
+          font-size: 2em;
         }
-
-        .container {
-            background: #fff;
-            padding: 40px 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 500px;
-            color: #000;
+        .chem-box {
+          padding: 30px 20px;
         }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-top: 15px;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            margin-bottom: 5px;
-            font-size: 14px;
-            transition: border 0.2s, box-shadow 0.2s;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #5c33ff;
-            box-shadow: 0 0 5px rgba(92,51,255,0.3);
-        }
-
         textarea {
-            resize: vertical;
-            min-height: 100px;
+          height: 80px;
         }
-
-        button {
-            width: 100%;
-            background: #5c33ff;
-            color: #fff;
-            padding: 15px;
-            margin-top: 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background: #3d1dba;
-            transform: translateY(-2px);
-        }
-
-        .output {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #f0f8ff;
-            font-size: 14px;
-            color: #0052cc;
-            word-wrap: break-word;
-        }
-
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            background: #e0f0ff;
-            padding: 10px;
-            border-radius: 8px;
-            overflow-x: auto;
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
 
-    <div class="container">
+  <body>
+    <!-- ===== Header ===== -->
+    <header>
+      <nav class="main-nav">
+        <a href="index.html" class="logo">TeachHub</a>
+        <ul class="nav-links">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="jaboutus.html">ABOUT US</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- ===== Main Chemistry AI Section ===== -->
+    <main>
+      <div class="chem-box">
         <h1>Chemistry Solver</h1>
-
-        <label>Enter Chemistry question:</label>
-        <textarea id="question" placeholder="Type your chemistry question here..."></textarea>
-
+        <label for="question">Enter Chemistry Question:</label>
+        <textarea
+          id="question"
+          placeholder="Type your chemistry question here..."
+        ></textarea>
         <button onclick="askAI()">Solve</button>
-
         <div id="ai-result" class="output">Result will appear here...</div>
-    </div>
+      </div>
+    </main>
 
+    <!-- ===== Footer ===== -->
+    <footer>
+      <p>&copy; 2025 TeachHub | Empowering Students and Teachers</p>
+    </footer>
+
+    <!-- ===== JavaScript ===== -->
     <script>
-        async function askAI() {
-            const input = document.getElementById("question").value.trim();
-            const output = document.getElementById("ai-result");
+      async function askAI() {
+        const input = document.getElementById("question").value.trim();
+        const output = document.getElementById("ai-result");
 
-            if (!input) {
-                output.innerText = "Please enter a math problem.";
-                return;
-            }
-
-            output.innerText = "Thinking...";
-
-            try {
-                // Replace '/api/solve' with your own AI backend endpoint
-                const res = await fetch('/api/solve', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ question: input })
-                });
-
-                if (!res.ok) throw new Error('AI request failed');
-
-                const data = await res.json();
-                output.innerHTML = "<pre>" + data.answer + "</pre>";
-
-            } catch (err) {
-                output.innerText = "Error: " + err.message;
-            }
+        if (!input) {
+          output.innerText = "⚠️ Please enter a chemistry question.";
+          return;
         }
-    </script>
 
-</body>
+        output.innerText = "🧠 Thinking...";
+
+        try {
+          // Replace '/api/solve' with your actual backend endpoint
+          const res = await fetch("/api/solve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question: input }),
+          });
+
+          if (!res.ok) throw new Error("AI request failed");
+
+          const data = await res.json();
+          output.innerHTML = "<strong>🧪 Answer:</strong><br><br><pre>" + data.answer + "</pre>";
+        } catch (err) {
+          output.innerText = "⚠️ Error: " + err.message;
+        }
+      }
+    </script>
+  </body>
 </html>
